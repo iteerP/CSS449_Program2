@@ -110,7 +110,6 @@ public class PointSet
 
   private double bruteForce(Point p1, Point p2, Point p3)
   {
-
     double d1 = dist(p1, p2); 
     double d2 = dist(p2, p3);
     double d3 = dist(p1, p3);
