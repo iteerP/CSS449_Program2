@@ -10,6 +10,7 @@
  *      - Inputted .txt file's data is formatted correctly
  * 
  * Author(s):
+ *      - Khushmeet Gobindpuri
  *      - Khushpreet Gobindpuri
  * -------------------------------------------------------------
  */
@@ -36,5 +37,8 @@ public class Main
   {
     // Read in file data through PointSet constructor
     PointSet ds = new PointSet("program2trivialdata.txt");
+
+    // Find closest pair in provided data
+    ds.findClosestPair();
   }
 }
