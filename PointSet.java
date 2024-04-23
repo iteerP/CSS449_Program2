@@ -24,9 +24,9 @@ import java.util.ArrayList;
 public class PointSet
 {
   private int size;
-  private Point[] points;
   private Point[] pointsXSorted;
   private Point[] pointsYSorted;
+  private double minDistance;
 
   public PointSet(String fileName)  
   {
@@ -40,7 +40,7 @@ public class PointSet
       this.size = size;
 
       // Initialize points array field
-      points = new Point[size];
+      Point[] points = new Point[size];
 
       // Iterate over each point in provided data and create respective
       // point object and store in PointSet's points array
@@ -122,7 +122,7 @@ public class PointSet
 
   public void findClosestPair()
   {
-    closestPair(0, (this.pointsXSorted.length - 1));
+    this.minDistance = closestPair(0, (this.pointsXSorted.length - 1));
   }
 
 
@@ -130,21 +130,24 @@ public class PointSet
   private double closestPair(int left, int right)
   {
     int n = ((right - left) + 1);
+    double minDistance;
 
     if(n == 2)
     {
-      System.out.printf("D[%d,%d]: %.04f\n", left, right, dist(this.pointsXSorted[right], this.pointsXSorted[left]));
-      return dist(this.pointsXSorted[right], this.pointsXSorted[left]);
+      minDistance = dist(this.pointsXSorted[right], this.pointsXSorted[left]);
+      System.out.printf("D[%d,%d]: %.04f\n", left, right, minDistance);
+      return minDistance;
     } else if (n == 3)
     {
-      System.out.printf("D[%d,%d]: %.04f\n", left, right, bruteForce(this.pointsXSorted[left], this.pointsXSorted[left+1], this.pointsXSorted[right]));
-      return bruteForce(this.pointsXSorted[left], this.pointsXSorted[left+1], this.pointsXSorted[right]);
+      minDistance = bruteForce(this.pointsXSorted[left], this.pointsXSorted[left+1], this.pointsXSorted[right]);
+      System.out.printf("D[%d,%d]: %.04f\n", left, right, minDistance);
+      return minDistance;
     }
 
     int mid = left + (right - left) / 2;
     double leftDist = closestPair(left, mid);
     double rightDist = closestPair(mid + 1, right);
-    double minDistance = Math.min(leftDist, rightDist);
+    minDistance = Math.min(leftDist, rightDist);
 
     double low = this.pointsXSorted[mid].getXCoord() - minDistance;
     double high = this.pointsXSorted[mid].getXCoord() + minDistance;

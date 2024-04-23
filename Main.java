@@ -36,7 +36,7 @@ public class Main
   public static void main(String[] args)
   {
     // Read in file data through PointSet constructor
-    PointSet ds = new PointSet("program2data.txt");
+    PointSet ds = new PointSet("program2trivialdata.txt");
 
     // Find closest pair in provided data
     ds.findClosestPair();
