@@ -27,9 +27,8 @@ public class PointSet
   private Point[] points;
   private Point[] pointsXSorted;
   private Point[] pointsYSorted;
-  private double closestDistance = -1;
 
-  public PointSet(String fileName)
+  public PointSet(String fileName)  
   {
     try
     {
@@ -150,6 +149,7 @@ public class PointSet
     double low = this.pointsXSorted[mid].getXCoord() - minDistance;
     double high = this.pointsXSorted[mid].getXCoord() + minDistance;
 
+    // Filtering out Points in range of current minDistance
     ArrayList<Point> inRange = new ArrayList<>();
     for(Point p : this.pointsYSorted)
     {
@@ -170,5 +170,4 @@ public class PointSet
     System.out.printf("D[%d,%d]: %.4f\n", left, right, minDistance);
     return minDistance;
   }
-
 }
