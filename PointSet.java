@@ -163,7 +163,7 @@ public class PointSet
 
     for(int i = 0; i < inRange.size(); ++i)
     {
-      for(int j = 1; (i + j) < inRange.size(); ++j)
+      for(int j = 1; (j <= 7) && ((i + j) < inRange.size()); ++j)
       {
         minDistance = Math.min(minDistance, dist(inRange.get(i), inRange.get(i + j)));
       }
