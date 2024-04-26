@@ -4,7 +4,10 @@
  *      Performs closest-pair search algorithm on provided data
  * 
  * Functionality:
- *      - 
+ *      - Reads points from provided data file
+ *      - Stores x-coordinates and y-coordinates of all points
+ *      - Sorts points based on x-coordinates and/or y-coordinates
+ *      - Finds distance between closest pair of points
  * 
  * Assumptions:
  *      - Inputted .txt file's data is formatted correctly
@@ -28,6 +31,24 @@ public class PointSet
   private Point[] pointsYSorted;
   private double minDistance;
 
+  /**
+    * ------------------------- PointSet -------------------------
+    * Purpose:
+    *      Reads x-coordinates and y-coordinates for each
+    *      point in the data file
+    * 
+    * Method Parameters:
+    *      - fileName: Name of data file (hardcoded
+    *        to program2data.txt)
+    * 
+    * Pre-conditions:
+    *      - Inputted .txt file's data is formatted correctly
+    * 
+    * Post-conditions:
+    *      - Point coordinates are read from file, sorted,
+    *        and stored in respective sorted arrays
+    * ------------------------------------------------------------
+    */
   public PointSet(String fileName)  
   {
     try
@@ -66,11 +87,6 @@ public class PointSet
       this.pointsXSorted = sortByX(points);
       this.pointsYSorted = sortByY(points);
 
-      // for(Point p : pointsXSorted)
-      // {
-      //   System.out.printf("X: %.04f | Y: %.04f\n", p.getXCoord(), p.getYCoord());
-      // }
-
       sc.close();
 
     } catch (FileNotFoundException e)
@@ -81,6 +97,23 @@ public class PointSet
 
 
 
+  /**
+    * ------------------------- sortByX -------------------------
+    * Purpose:
+    *      Sorts elements of points array by x-coordinate
+    *      from lowest to highest
+    * 
+    * Method Parameters:
+    *      - points: Array containing a list of point objects
+    * 
+    * Pre-conditions:
+    *      - None
+    * 
+    * Post-conditions:
+    *      - Point objects in passed in points array are
+    *        sorted by x-coordinate, from lowest to highest
+    * -----------------------------------------------------------
+    */
   private Point[] sortByX(Point[] points)
   {
     Point[] sortedByX = points.clone();
@@ -90,6 +123,23 @@ public class PointSet
 
 
 
+  /**
+    * ------------------------- sortByY -------------------------
+    * Purpose:
+    *      Sorts elements of points array by y-coordinate
+    *      from lowest to highest
+    * 
+    * Method Parameters:
+    *      - points: Array containing a list of point objects
+    * 
+    * Pre-conditions:
+    *      - None
+    * 
+    * Post-conditions:
+    *      - Point objects in passed in points array are
+    *        sorted by y-coordinate, from lowest to highest
+    * -----------------------------------------------------------
+    */
   private Point[] sortByY(Point[] points)
   {
     Point[] sortedByY = points.clone();
@@ -99,6 +149,24 @@ public class PointSet
 
 
 
+  /**
+    * ------------------------- dist ----------------------------
+    * Purpose:
+    *      Calculates the distance between two points using
+    *      the Euclidean distance formula
+    * 
+    * Method Parameters:
+    *      - p1: Point one
+    *      - p2: Point two
+    * 
+    * Pre-conditions:
+    *      - None
+    * 
+    * Post-conditions:
+    *      - Distance between two passed in points is calculated
+    *        and returned
+    * -----------------------------------------------------------
+    */
   private double dist(Point p1, Point p2)
   { 
     double deltaX = p2.getXCoord() - p1.getXCoord(); 
@@ -108,6 +176,25 @@ public class PointSet
 
 
 
+  /**
+    * ------------------------- bruteForce -------------------------
+    * Purpose:
+    *      Calculates the closest distance between three pairs
+    *      of points
+    * 
+    * Method Parameters:
+    *      - p1: Point one
+    *      - p2: Point two
+    *      - p3: Point three
+    * 
+    * Pre-conditions:
+    *      - None
+    * 
+    * Post-conditions:
+    *      - Closest distance between three pairs of points
+    *        is calculated and returned
+    * --------------------------------------------------------------
+    */
   private double bruteForce(Point p1, Point p2, Point p3)
   {
     double d1 = dist(p1, p2); 
@@ -119,13 +206,49 @@ public class PointSet
 
 
 
+  /**
+    * ------------------------- findClosestPair -------------------------
+    * Purpose:
+    *      Starts recursive function, closestPair(left, right), with
+    *      initial values left=0 and right=pointsArr.length-1
+    * 
+    * Method Parameters:
+    *      - None
+    * 
+    * Pre-conditions:
+    *      - None
+    * 
+    * Post-conditions:
+    *      - Distance between two closest points is calculated
+    *        and returned
+    * -------------------------------------------------------------------
+    */
   public void findClosestPair()
   {
     this.minDistance = closestPair(0, (this.pointsXSorted.length - 1));
+    System.out.printf("Closest distance between two points is: %.4f", this.minDistance);
   }
 
 
 
+  /**
+    * ------------------------- closestPair -------------------------
+    * Purpose:
+    *      Recursively calculates the distance between the closest
+    *      pair of points
+    * 
+    * Method Parameters:
+    *      - left: Value of leftmost index of subarray
+    *      - right: Value of rightmost index of subarray
+    * 
+    * Pre-conditions:
+    *      - left is less than right
+    * 
+    * Post-conditions:
+    *      - Distance between two closest points is calculated
+    *        and returned
+    * ---------------------------------------------------------------
+    */
   private double closestPair(int left, int right)
   {
     int n = ((right - left) + 1);
