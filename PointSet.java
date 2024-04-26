@@ -226,7 +226,6 @@ public class PointSet
   public void findClosestPair()
   {
     this.minDistance = closestPair(0, (this.pointsXSorted.length - 1));
-    System.out.printf("Closest distance between two points is: %.4f", this.minDistance);
   }
 
 
